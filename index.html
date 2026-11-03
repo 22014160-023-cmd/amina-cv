@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amina's Portfolio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    padding: 4rem 3rem;
+    text-align: center;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+    z-index: 10;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 1px;
+  }
+
+  .open-btn {
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 18px 45px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .open-btn:hover {
+    transform: scale(1.05) translateY(-3px);
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+
+  .open-btn:active { transform: scale(0.98); }
+
+  .bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    backdrop-filter: blur(2px);
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
+    animation: rise 15s infinite ease-in;
+    bottom: -100px;
+  }
+
+  .bubble:nth-child(1) { left: 10%; width: 60px; height: 60px; animation-duration: 8s; }
+  .bubble:nth-child(2) { left: 30%; width: 120px; height: 120px; animation-duration: 12s; }
+  .bubble:nth-child(3) { left: 50%; width: 80px; height: 80px; animation-duration: 10s; }
+  .bubble:nth-child(4) { left: 70%; width: 40px; height: 40px; animation-duration: 7s; }
+  .bubble:nth-child(5) { left: 85%; width: 100px; height: 100px; animation-duration: 14s; }
+  .bubble:nth-child(6) { left: 20%; width: 90px; height: 90px; animation-duration: 9s; }
+  .bubble:nth-child(7) { left: 60%; width: 50px; height: 50px; animation-duration: 11s; }
+
+  @keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 0.6; }
+    100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+  }
+
+  .pop-bubble {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: popOut 0.6s ease-out forwards;
+  }
+
+  @keyframes popOut {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  .fade-out { animation: fadeAway 0.8s forwards; }
+  @keyframes fadeAway { to { opacity: 0; transform: scale(1.1); pointer-events: none; } }
+</style>
+</head>
+<body>
+
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+  <div class="glass-card" id="card">
+    <h1>Amina Shoukat</h1>
+    <p>Biotechnologist</p>
+    <button class="open-btn" onclick="openCV(event)">✨ Open CV ✨</button>
+  </div>
+
+  <script>
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = new AudioContext();
+
+    function playPopSound() {
+      if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+      gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function createPop(x, y) {
+      const pop = document.createElement('div');
+      pop.className = 'pop-bubble';
+      pop.style.left = x + 'px';
+      pop.style.top = y + 'px';
+      pop.style.width = '50px';
+      pop.style.height = '50px';
+      pop.style.transform = 'translate(-50%, -50%)';
+      document.body.appendChild(pop);
+      setTimeout(() => { pop.remove(); }, 600);
+    }
+
+    function openCV(e) {
+      playPopSound();
+      createPop(e.clientX, e.clientY);
+      const card = document.getElementById('card');
+      card.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = 'cv.html';
+      }, 800);
+    }
+  </script>
+</body>
+</html>
