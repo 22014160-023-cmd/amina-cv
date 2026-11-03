@@ -27,15 +27,16 @@
   
   .header { display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem; }
   
-  /* FIXED PICTURE: Using contain so her head doesn't get cut off */
+  /* FIXED PICTURE FRAMING */
   .profile-pic { 
     width: 140px; 
     height: 140px; 
     border-radius: 50%; 
-    object-fit: contain; 
-    background-color: #f4f4f4;
-    border: 2px solid #1d4e7f; 
+    object-fit: cover; 
+    object-position: center 20%; /* Adjusts the vertical focus so her head isn't cut off */
+    border: 3px solid #1d4e7f; 
     flex-shrink: 0; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
   
   .header-info { flex-grow: 1; }
@@ -210,7 +211,7 @@
   </div>
 
   <div class="section">
-    <div class="section-title">PROJECTS (Mehwish's Projects)</div>
+    <div class="section-title">PROJECTS</div>
     <div class="project-item"><div class="project-title">Micropropagation of wheat calluses</div><div class="project-desc">Induced embryogenic callus formation from wheat explants under sterile conditions. Maintained and sub cultured callus cultures for plant tissue propagation. Performed Agrobacterium tumefaciens mediated transformation techniques.</div></div>
     <div class="project-item"><div class="project-title">E. coli Competent Cell Preparation & Transformation</div><div class="project-desc">Prepared chemically competent Escherichia coli cells. Performed plasmid transformation using an available DNA construct. Evaluated transformation success using standard microbiological techniques.</div></div>
     <div class="project-item"><div class="project-title">Quantification of Protein in Local Duckweed</div><div class="project-desc">Estimated total protein content of local duckweed samples using the Bradford assay. Prepared standards and measured absorbance with spectrophotometric analysis.</div></div>
@@ -244,7 +245,7 @@
   </div>
 
   <div class="section">
-    <div class="section-title">RECOMMENDATIONS (Mehwish's References)</div>
+    <div class="section-title">RECOMMENDATIONS</div>
     <div class="recommendation">
       <div class="ref-name">Dr. Umer Rasheed</div>
       <div class="ref-title">Professor | Chairperson</div>
